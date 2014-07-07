@@ -1,0 +1,57 @@
+<div ng-controller="HomeController">
+	<div class="row">
+
+		<div class="col-md-6">
+		    <h1> home </h1>
+			
+			<p> Hi {{ name }} </p> <br/>
+			
+			<div ng-repeat="u in users">
+				<span>  {{u.userLastName}}, {{u.userFirstName}} </span> <br/>
+			</div>
+
+			<hr/>
+
+			<form role="form" ng-model="m2s">
+			  <div class="form-group">
+			    <label>First Name</label>
+			    <input type="text" class="form-control"  placeholder="first name" ng-model="m2s.userFirstName">
+			  </div>
+			  <div class="form-group">
+			    <label>Last Name</label>
+			    <input type="text" class="form-control"  placeholder="last name" ng-model="m2s.userLastName">
+			  </div>	  
+			  <button type="submit" class="btn btn-default" ng-click="submitUser()">Submit</button>
+			</form>
+			
+			<hr/>
+		</div>
+
+		<div class="col-md-6">	
+			<table class="table">
+				<tr>
+					<td id='numBtn1' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 1]" ng-click="clickNum(1)">1</td>
+					<td id='numBtn2' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 2]" ng-click="clickNum(2)">2</td>
+					<td id='numBtn3' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 3]" ng-click="clickNum(3)">3</td>
+				</tr>
+				<tr>
+					<td id='numBtn4' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 4]" ng-click="clickNum(4)">4</td>
+					<td id='numBtn5' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 5]" ng-click="clickNum(5)">5</td>
+					<td id='numBtn6' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 6]" ng-click="clickNum(6)">6</td>
+				</tr>
+				<tr>
+					<td id='numBtn7' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 7]" ng-click="clickNum(7)">7</td>
+					<td id='numBtn8' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 8]" ng-click="clickNum(8)">8</td>
+					<td id='numBtn9' ng-class="{true: 'btn phoneBtn active', false: 'btn phoneBtn'}[currentNum === 9]" ng-click="clickNum(9)">8</td>
+				</tr>
+			</table>
+			<span id="number2Dial">{{number2dial}}</span>
+		</div>
+
+	</div>
+
+	<!-- <hr/><pre>
+		users {{users | json }}
+	</pre> -->
+	
+</div>

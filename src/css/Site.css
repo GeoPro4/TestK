@@ -1,0 +1,77 @@
+﻿body {
+  padding-top: 50px;
+}
+
+.phoneBtn {
+	width: 100px;
+	height: 100px;
+	valign: middle;
+}
+
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.reveal-animation.ng-enter {
+	-webkit-transition: 1s linear all; /* Safari/Chrome */
+	-moz-transition: 1s linear all; /* Firefox */
+	-o-transition: 1s linear all; /* Opera */
+	transition: 1s linear all; /* IE10+ and Future Browsers */
+		 
+	/* The animation preparation code */
+	opacity: 0;
+}
+	
+.reveal-animation.ng-enter.ng-enter-active {
+	/* The animation code itself */
+	opacity: 1;
+}
+
+toggle {
+    -webkit-transition: linear 1s;
+    -moz-transition: linear 1s;
+    -ms-transition: linear 1s;
+    -o-transition: linear 1s;
+    transition: linear 1s;
+}
+
+.toggle.ng-enter {
+    opacity: 0;
+}
+
+.toggle.ng-enter-active {
+    opacity: 1;
+}
+
+.toggle.ng-leave {
+    opacity: 1;
+}
+
+.toggle.ng-leave-active {
+    opacity: 0;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
