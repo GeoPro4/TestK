@@ -1,4 +1,4 @@
-var app = angular.module('testApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+var app = angular.module('testApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.calendar']);
 
 app.controller('NavController', function($scope, $location) {
 	$scope.navClass = function (page) {

@@ -144,6 +144,7 @@ module.exports = function(grunt) {
   				'dist/lib/js/angular-route.js',
   				'dist/lib/js/angular-animate.js',
   				'dist/lib/js/ui-bootstrap-0.10.0.js',
+          'dist/lib/js/calendar.js',
   				'dist/js/**/*.js',
   				'!src/js/**/*.test.js'
 			  ],
@@ -209,7 +210,8 @@ module.exports = function(grunt) {
   // ===========================================================================
   // CREATE TASKS ==============================================================
   // ===========================================================================
-  grunt.registerTask('devBuild', ['jshint', 'clean:build', 'concat', 'cssmin', 'less', 'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 'jasmine:runUnitTests']); 
+  //grunt.registerTask('devBuild', ['jshint', 'clean:build', 'concat', 'cssmin', 'less', 'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 'jasmine:runUnitTests']); 
+  grunt.registerTask('devBuild', ['jshint', 'clean:build', 'concat', 'cssmin', 'less', 'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 'karma']); 
   grunt.registerTask('prodBuild', ['jshint', 'clean:build', 'concat', 'uglify', 'cssmin', 'less', 'copy:build', 'clean:after']); 
   grunt.registerTask('startServer', ['shell:mongodb', 'express:dev', 'watch']);
 

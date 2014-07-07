@@ -18,6 +18,7 @@ module.exports = function(config) {
       'dist/lib/js/angular-animate.js',
       'dist/lib/js/angular-route.js',
       'dist/lib/js/ui-bootstrap-0.10.0.js',
+      'dist/lib/js/calendar.js',
       'dist/js/main.min.js',
       'test/unit/**/*.js'
     ],

@@ -58,9 +58,9 @@ app.controller('Page2Controller', function ($scope, $timeout, testService, $http
         height: 450,
         editable: true,
         header:{
-          left: 'month basicWeek basicDay agendaWeek agendaDay',
-          center: 'title',
-          right: 'today prev,next'
+        	left: 'prev',
+			center: 'title',
+			right: 'next'
         },
         dayClick: $scope.alertEventOnClick,
         eventDrop: $scope.alertOnDrop,
@@ -68,10 +68,43 @@ app.controller('Page2Controller', function ($scope, $timeout, testService, $http
       }
     };
 
-     $scope.eventSource = {
-            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            className: 'gcal-event',           // an option!
-            currentTimezone: 'America/Chicago' // an option!
+    $scope.eventSource = [
+		{
+		  "title" : "\n\nL 3-2",
+		  "start" : "2014-07-13 10:20:00",
+		  "end" : "2014-07-13 11:00:00",
+		  "allDay" : false,
+		  "className" : "psb",
+		  "type": "game"			  
+		},
+		{
+		  "title" : "\n\nW 5-4",
+		  "start" : "2014-07-11 10:20:00",
+		  "end" : "2014-07-11 11:00:00",
+		  "allDay" : false,
+		  "className" : "preds",
+		  "type": "game"		  
+		},
+		{
+		  "title" : "\n7:00pm",
+		  "start" : "2014-07-25 10:20:00",
+		  "end" : "2014-07-25 11:00:00",
+		  "allDay" : false,
+		  "className" : "teamPurple",
+		  "type" : "game"
+		},
+		{
+		  "title" : "\n7:30pm",
+		  "start" : "2014-07-27 10:20:00",
+		  "end" : "2014-07-27 11:00:00",
+		  "allDay" : false,
+		  "className" : "game",
+		  "type" : "game"
+		}
+	];
+
+    $scope.alertEventOnClick = function (data) {
+    	console.log('click on cal: ' + data);
     };
 
  });
