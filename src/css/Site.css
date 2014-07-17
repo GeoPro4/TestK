@@ -13,6 +13,8 @@
   text-align: center;
 }
 
+/* animations */
+
 .reveal-animation.ng-enter {
 	-webkit-transition: 1s linear all; /* Safari/Chrome */
 	-moz-transition: 1s linear all; /* Firefox */
@@ -75,3 +77,11 @@ toggle {
 .validation-summary-valid {
     display: none;
 }
+
+
+/* animated side buttons */
+
+
+
+
+

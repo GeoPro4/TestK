@@ -1,0 +1,74 @@
+#calendar {
+    width: 400px;
+}
+
+.fc-day{
+	background: rgb(85,85,85);
+	color: white;
+	text-align: center;
+	border-color: black;
+	height: 75px;
+}
+
+.fc-header {
+	background: black;
+	color: white;
+	text-align: center;
+	border-color: black;
+}
+
+.fc-day-header {
+	background: black;
+	color: white;
+	border-color: black;
+}
+
+.fc-day-header-center{
+	background: black;
+	color: white;
+}
+
+.fc-event-time{
+   display: none;
+}
+
+.fc-day-number{
+	/* display: none;*/
+	text-align: center;
+}
+
+.fc-other-month {
+	color: white;
+	background: rgb(50,50,50);
+}
+
+.fc-event-inner { 
+	text-align: center;
+	color: black;
+}
+
+.psb {	
+	color: black;
+	border: none;
+	background-color: rgb(231,216,172);
+    background-image: url(../img/psb.png);
+    background-repeat: no-repeat;
+    background-size:60px 31px;	
+}
+
+.preds {	
+	color: black;
+	border: none;
+	background-color: rgb(231,216,172);
+    background-image: url(../img/preds.png);
+    background-repeat: no-repeat;
+    background-size:60px 31px;
+	top: 100px;
+}
+
+.hide {
+   position: absolute !important;
+   top: -9999px !important;
+   left: -9999px !important;
+   display: none !important;
+}

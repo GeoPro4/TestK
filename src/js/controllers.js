@@ -56,19 +56,34 @@ app.controller('Page2Controller', function ($scope, $timeout, testService, $http
 	$scope.uiConfig = {
       calendar:{
         height: 450,
-        editable: true,
+        editable: false,
         header:{
         	left: 'prev',
 			center: 'title',
 			right: 'next'
         },
-        dayClick: $scope.alertEventOnClick,
-        eventDrop: $scope.alertOnDrop,
-        eventResize: $scope.alertOnResize
+        events: [
+	        {
+			      "title" : "\n\nL 3-2",
+				  "start" : "2014-07-13",
+				  "className" : "psb",
+			},
+			{
+				  "title" : "\n\nW 5-4",
+				  "start" : "2014-07-11 ",
+				  "className" : "preds",	  
+			}
+	    ],
+	    dayClick: function(data) {
+	    	alert('click event' + JSON.stringify(data));
+	    },
+	    viewRender: function(view, element) {
+            console.log("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+        }
       }
     };
 
-    $scope.eventSource = [
+    $scope.customEvents = [
 		{
 		  "title" : "\n\nL 3-2",
 		  "start" : "2014-07-13 10:20:00",
@@ -102,11 +117,6 @@ app.controller('Page2Controller', function ($scope, $timeout, testService, $http
 		  "type" : "game"
 		}
 	];
-
-    $scope.alertEventOnClick = function (data) {
-    	console.log('click on cal: ' + data);
-    };
-
  });
 
 app.controller('MainController', function ($scope) {
@@ -118,6 +128,10 @@ app.controller('MainController', function ($scope) {
 		$scope.greeting = 'Hello ' + $scope.name;
 	};
 
+});
+
+app.controller('Page3Controller', function ($scope) {	
+	$scope.name = 'Geo';
 });
 
 app.directive('setNgAnimate', ['$animate', function ($animate) {

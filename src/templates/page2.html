@@ -1,11 +1,11 @@
-<div ng-controller="HomeController" >
+<div ng-controller="Page2Controller" >
     <h1> Page 2 </h1>
 	
 	<p> Hi {{ name }} </p>
 
 	<div class="row">
     	<div class="col-md-6">
-			<div style="height: 305px">
+			<div style="height: 305px;">
 
 			    <carousel interval="myInterval" set-ng-animate="false">
 			      <slide ng-repeat="slide in slides" active="slide.active">
@@ -21,7 +21,8 @@
 		</div>
 
 		<div class="col-md-6">
-			<div ui-calendar="uiConfig.calendar" ng-model="eventSources">
+			<div ui-calendar="uiConfig.calendar">
+			<!-- <div ui-calendar ng-model="eventSources"></div> -->
 		</div>
 	</div>
     

@@ -18,6 +18,11 @@ app.config(function ($routeProvider) {
 		{
 			controller: 'Page2Controller',
 			templateUrl: 'templates/page2.html'
+		})
+		.when('/page3',
+		{
+			controller: 'Page3Controller',
+			templateUrl: 'templates/page3.html'
 		});
 });
 
