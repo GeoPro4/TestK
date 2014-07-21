@@ -23,6 +23,11 @@ app.config(function ($routeProvider) {
 		{
 			controller: 'Page3Controller',
 			templateUrl: 'templates/page3.html'
+		})
+		.when('/blog',
+		{
+			controller: 'BlogController',
+			templateUrl: 'templates/blog.html'
 		});
 });
 

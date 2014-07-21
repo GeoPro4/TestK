@@ -130,6 +130,10 @@ app.controller('MainController', function ($scope) {
 
 });
 
+app.controller('BlogController', function ($scope) {	
+	$scope.name = 'Geo';
+});
+
 app.controller('Page3Controller', function ($scope) {	
 	$scope.name = 'Geo';
 });
