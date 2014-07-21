@@ -136,6 +136,24 @@ app.controller('BlogController', function ($scope) {
 
 app.controller('Page3Controller', function ($scope) {	
 	$scope.name = 'Geo';
+	$scope.numOfStars = 5;
+
+	$scope.reviews = [
+		{
+			'title': 'story 1', 
+			'imgUrl': 'img/new_stang.jpg',
+			'storyText': 'You ought to be ashamed of yourself for asking such a simple question, added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, Drive on, old fellow! Dont be all day about it! and he went on in these words: Yes, we went to school in the sea, though you maynt believe it— I never said I didnt!nterrupted Alice. You did,said the Mock Turtle.',
+			'date': '2012-08-02 20:47:04',
+			'rating': 4
+		},
+		{
+			'title': 'story 2', 
+			'imgUrl': 'img/stang.jpg',
+			'storyText': 'You ought to be ashamed of yourself for asking such a simple question, added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, Drive on, old fellow! Dont be all day about it! and he went on in these words: Yes, we went to school in the sea, though you maynt believe it— I never said I didnt!nterrupted Alice. You did,said the Mock Turtle.',
+			'date': '2012-08-12 20:47:04',
+			'rating': 3
+		}
+	];
 });
 
 app.directive('setNgAnimate', ['$animate', function ($animate) {
