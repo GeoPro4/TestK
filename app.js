@@ -9,13 +9,16 @@ var path = require('path');
 var api = require('./routes/api');
 
 var fs = require('fs');
-var moment = require('moment');
 
 var databaseUrl = "testDB";
 var collections = ["users", "pics"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
+
+app.configure(function () {
+  app.use(express.bodyParser());
+});
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -46,7 +49,7 @@ app.post('/upload', function(req, res) {
 
 	var date = new Date();
 
-	console.log('asdf' + JSON.stringify(req.files));
+	console.log('files: ' + JSON.stringify(req.files));
 
 	/*fs.readFile(req.files.file.path, function (err, data) {
 
