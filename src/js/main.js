@@ -1,4 +1,4 @@
-var app = angular.module('testApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.calendar']);
+var app = angular.module('testApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap', 'ui.calendar', 'angularFileUpload']);
 
 app.controller('NavController', function($scope, $location) {
 	$scope.navClass = function (page) {
@@ -19,15 +19,20 @@ app.config(function ($routeProvider) {
 			controller: 'Page2Controller',
 			templateUrl: 'templates/page2.html'
 		})
-		.when('/page3',
+		.when('/reviews',
 		{
-			controller: 'Page3Controller',
-			templateUrl: 'templates/page3.html'
+			controller: 'ReviewsController',
+			templateUrl: 'templates/reviews.html'
 		})
 		.when('/blog',
 		{
 			controller: 'BlogController',
 			templateUrl: 'templates/blog.html'
+		})
+		.when('/AddReview',
+		{
+			controller: 'AddReviewController',
+			templateUrl: 'templates/addReview.html'
 		});
 });
 

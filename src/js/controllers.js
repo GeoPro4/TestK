@@ -134,7 +134,7 @@ app.controller('BlogController', function ($scope) {
 	$scope.name = 'Geo';
 });
 
-app.controller('Page3Controller', function ($scope) {	
+app.controller('ReviewsController', function ($scope, $upload) {	
 	$scope.name = 'Geo';
 	$scope.numOfStars = 5;
 
