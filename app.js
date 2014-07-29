@@ -11,7 +11,7 @@ var api = require('./routes/api');
 var fs = require('fs');
 
 var databaseUrl = "testDB";
-var collections = ["users", "pics"]
+var collections = ["users", "pics", "reviews"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
@@ -44,25 +44,28 @@ app.get('/', function(req, res) {
 app.get('/api/users', api.GetUsers(db));
 app.post('/api/users', api.AddUser(db));
 
+app.get('/api/Reviews', api.GetReviews(db));
+app.post('/api/Reviews', api.AddReview(db));
+app.delete('/api/Reviews/:reviewId', api.DeleteReview(db));
+
+app.get('/uploads/:file', api.GetPic(db));
+
 /// Post files
 app.post('/upload', function(req, res) {
 
 	var date = new Date();
 
-	console.log('files: ' + JSON.stringify(req.files));
-
-	/*fs.readFile(req.files.file.path, function (err, data) {
+	fs.readFile(req.files.file.path, function (err, data) {
 
 		var picNum = req.body.picNum;
 		var reviewId = req.body.reviewId;
-		console.log('p: ' + picNum + " reviewId: " + reviewId);
 		
 		var orgImageName = req.files.file.name;
 		var orgImagePath = req.files.file.path;
 		var fileExtension = orgImageName.slice(-4);
 
 		var imageName = reviewId + '_pic_' + picNum + fileExtension;
-		var serverPath =  __dirname + "/public/uploads/" + imageName;
+		var serverPath =  __dirname + "/uploads/" + imageName;
 		var imgPath = '/uploads/' + imageName;
 
 		var ipAddr = req.headers["x-forwarded-for"];
@@ -74,7 +77,9 @@ app.post('/upload', function(req, res) {
 		}
 
 		/// write file to uploads folder
-		fs.writeFile(serverPath, data, function (err) {			
+		fs.writeFile(serverPath, data, function (err) {		
+
+			console.log('file uploaded and saved  - ' + orgImageName);	
 		
 			db.pics.insert({'reviewId': reviewId,
 							'imgName': imageName, 
@@ -89,7 +94,7 @@ app.post('/upload', function(req, res) {
 			res.json({'orgImageName': orgImageName, 'imgName': imageName, 'imgPath': imgPath});
 			res.end();
 		});
-	});	*/
+	});	
 });
 
 
