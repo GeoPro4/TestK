@@ -103,9 +103,10 @@ exports.AddReview = function(db) {
 	
 		db.reviews.insert({'reviewName': req.body.reviewName, 
 							'reviewText': req.body.reviewText,
+							'rating': req.body.rating,
 							'mainPicUrl': req.body.mainPicUrl,
 							'dateAdded': date,
-							'revieId': req.body.revieId,
+							'reviewId': req.body.reviewId,
 							'ipAddr': ipAddr}, (function(err, mes) {
 			if( err || !mes) {
 				console.log("review not saved: " + mes);

@@ -14,6 +14,8 @@
   text-align: center;
 }
 
+.fa-fw {width: 2em;}
+
 /* animations */
 
 .reveal-animation.ng-enter {
@@ -21,38 +23,19 @@
 	-moz-transition: 1s linear all; /* Firefox */
 	-o-transition: 1s linear all; /* Opera */
 	transition: 1s linear all; /* IE10+ and Future Browsers */
-		 
-	/* The animation preparation code */
 	opacity: 0;
 }
 	
 .reveal-animation.ng-enter.ng-enter-active {
-	/* The animation code itself */
 	opacity: 1;
 }
 
-toggle {
-    -webkit-transition: linear 1s;
-    -moz-transition: linear 1s;
-    -ms-transition: linear 1s;
-    -o-transition: linear 1s;
-    transition: linear 1s;
+.customAnimation.ng-enter {
+  animation: fadeIn 1s;
 }
 
-.toggle.ng-enter {
-    opacity: 0;
-}
-
-.toggle.ng-enter-active {
-    opacity: 1;
-}
-
-.toggle.ng-leave {
-    opacity: 1;
-}
-
-.toggle.ng-leave-active {
-    opacity: 0;
+.customAnimation.ng-leave {
+  animation: fadeOut 1s;
 }
 
 /* Styles for validation helpers

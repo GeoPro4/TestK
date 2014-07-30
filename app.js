@@ -59,7 +59,7 @@ app.post('/upload', function(req, res) {
 
 		var picNum = req.body.picNum;
 		var reviewId = req.body.reviewId;
-		
+				
 		var orgImageName = req.files.file.name;
 		var orgImagePath = req.files.file.path;
 		var fileExtension = orgImageName.slice(-4);
@@ -83,7 +83,7 @@ app.post('/upload', function(req, res) {
 		
 			db.pics.insert({'reviewId': reviewId,
 							'imgName': imageName, 
-							'imgPath': imgPath, 
+							'imgPath': imgPath, 							
 							'dateAdded': date, 
 							'orgImageName': orgImageName,
 							'orgImagePath': orgImagePath,

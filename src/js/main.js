@@ -33,6 +33,11 @@ app.config(function ($routeProvider) {
 		{
 			controller: 'AddReviewController',
 			templateUrl: 'templates/addReview.html'
+		})
+		.when('/admin',
+		{
+			controller: 'AdminController',
+			templateUrl: 'templates/admin.html'
 		});
 });
 
