@@ -89,7 +89,7 @@ module.exports = function(grunt) {
   	  },	  
       jsFiles: {
         files: ['src/**/*.js'],
-        tasks: ['jshint', 'clean:jsFiles', 'concat', 'copy:copyUnminJsFiles', 'clean:after', 'jasmine:runUnitTests'],
+        tasks: ['jshint', 'clean:jsFiles', 'concat', 'copy:copyUnminJsFiles', 'clean:after', 'karma'],
         options: {
           spawn: false
         }

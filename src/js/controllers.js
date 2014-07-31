@@ -145,6 +145,15 @@ app.controller('ReviewsController', function ($scope, $upload, $http) {
 	/*'storyText': 'You ought to be ashamed of yourself for asking such a simple question, added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, Drive on, old fellow! Dont be all day about it! and he went on in these words: Yes, we went to school in the sea, though you maynt believe it— I never said I didnt!nterrupted Alice. You did,said the Mock Turtle.',*/
 });
 
+app.controller('ReviewController', function ($scope, $upload, $http, $routeParams) {	
+	$scope.title = 'Review';
+	$scope.reviewId = $routeParams.reviewId;
+
+	$http.get('api/reviews/' + $scope.reviewId).then(function(result) {
+		$scope.review = result.data[0];
+	});
+});
+
 app.directive('setNgAnimate', ['$animate', function ($animate) {
     return {
         link: function ($scope, $element, $attrs) {
@@ -157,3 +166,25 @@ app.directive('setNgAnimate', ['$animate', function ($animate) {
         }
     };
 }]);
+
+app.directive('angularModal', function () {
+	return {
+		restrict: 'A',
+		scope: {
+			value: '=ngModel'
+		},
+		link: function(scope, element, attrs) {
+			scope.$watch('value', function() {
+				if(scope.value) {
+					element.modal('show');
+				} else {
+					element.modal('hide');
+				}
+			});
+
+			scope.$on('$routeChangeStart', function(scope, next, current){
+				element.modal('hide');
+			});
+		}
+	};
+});

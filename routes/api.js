@@ -88,6 +88,48 @@ exports.GetReviews = function(db) {
   }
 };
 
+exports.GetReview = function(db) { 
+  return function(req, res) { 
+
+  	var reviewId = req.params.reviewId;
+
+  	console.log('getting review ... ' + reviewId);
+
+	db.reviews.find({'reviewId': reviewId}).toArray(function(err, result) {			
+
+		if( err || !result) {
+			console.log("No reviews found, error:  " + result);
+			res.writeHead(500, { 'Content-Type': 'application/json' });	
+			res.end();
+		} else {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(result));			
+		}
+	});
+  }
+};
+
+exports.UpdateReview = function(db) { 
+  return function(req, res) { 
+
+  	var reviewId = req.params.reviewId;
+  	console.log('updating review ... ' + reviewId);
+
+  	db.reviews.update({'reviewId': reviewId}, {$set: {'rating': req.body.rating,
+  													  'reviewName': req.body.reviewName,
+  													  'reviewText': req.body.reviewText}}, function(err, result) {
+  		if( err || !result) {
+			console.log("Error updating:  " + result);
+			res.writeHead(500, { 'Content-Type': 'application/json' });	
+			res.end();
+		} else {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(result));			
+		}
+  	});
+  }
+};
+
 exports.AddReview = function(db) { 
   return function(req, res) {
 

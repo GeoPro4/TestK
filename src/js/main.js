@@ -24,6 +24,11 @@ app.config(function ($routeProvider) {
 			controller: 'ReviewsController',
 			templateUrl: 'templates/reviews.html'
 		})
+		.when('/reviews/:reviewId',
+		{
+			controller: 'ReviewController',
+			templateUrl: 'templates/review.html'
+		})
 		.when('/blog',
 		{
 			controller: 'BlogController',

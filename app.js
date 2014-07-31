@@ -45,6 +45,8 @@ app.get('/api/users', api.GetUsers(db));
 app.post('/api/users', api.AddUser(db));
 
 app.get('/api/Reviews', api.GetReviews(db));
+app.get('/api/Reviews/:reviewId', api.GetReview(db));
+app.put('/api/Reviews/:reviewId', api.UpdateReview(db));
 app.post('/api/Reviews', api.AddReview(db));
 app.delete('/api/Reviews/:reviewId', api.DeleteReview(db));
 
