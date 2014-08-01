@@ -50,6 +50,7 @@ app.put('/api/Reviews/:reviewId', api.UpdateReview(db));
 app.post('/api/Reviews', api.AddReview(db));
 app.delete('/api/Reviews/:reviewId', api.DeleteReview(db));
 
+app.get('/api/Pictures/:reviewId', api.GetPictures(db));
 app.get('/uploads/:file', api.GetPic(db));
 
 /// Post files

@@ -65,6 +65,28 @@ exports.GetPic = function(db) {
   }
 };
 
+exports.GetPictures = function(db) {
+  return function(req, res) {
+
+  	var reviewId = req.params.reviewId;
+
+  	console.log('getting pics for review ... ' + reviewId);
+
+	db.pics.find({'reviewId': reviewId}).toArray(function(err, result) {			
+
+		if( err || !result) {
+			console.log("No reviews found, error:  " + result);
+			res.writeHead(500, { 'Content-Type': 'application/json' });	
+			res.end();
+		} else {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(result));			
+		}
+	});
+
+  }
+};
+
 /*
 ----------------------------
 ----      Reviews       ----

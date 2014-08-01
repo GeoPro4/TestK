@@ -145,13 +145,27 @@ app.controller('ReviewsController', function ($scope, $upload, $http) {
 	/*'storyText': 'You ought to be ashamed of yourself for asking such a simple question, added the Gryphon; and then they both sat silent and looked at poor Alice, who felt ready to sink into the earth. At last the Gryphon said to the Mock Turtle, Drive on, old fellow! Dont be all day about it! and he went on in these words: Yes, we went to school in the sea, though you maynt believe it— I never said I didnt!nterrupted Alice. You did,said the Mock Turtle.',*/
 });
 
-app.controller('ReviewController', function ($scope, $upload, $http, $routeParams) {	
+app.controller('ReviewController', function ($scope, $upload, $http, $routeParams, $q, $timeout) {	
 	$scope.title = 'Review';
 	$scope.reviewId = $routeParams.reviewId;
 
-	$http.get('api/reviews/' + $scope.reviewId).then(function(result) {
-		$scope.review = result.data[0];
+	$q.all([
+		$http.get('api/reviews/' + $scope.reviewId),
+		$http.get('api/Pictures/' + $scope.reviewId)
+	]).then(function(results) {
+		$scope.review = results[0].data[0];
+		$scope.pics = results[1].data;
 	});
+
+	$scope.selectPic = function(pic) {
+		$scope.showPicModal = false;
+
+		$scope.bigPictureUrl = pic.imgPath;
+		
+		$timeout(function() {
+			$scope.showPicModal = true;
+		}, 0);
+	};
 });
 
 app.directive('setNgAnimate', ['$animate', function ($animate) {

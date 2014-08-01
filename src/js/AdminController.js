@@ -2,6 +2,7 @@ app.controller('AdminController', function ($scope, $upload, $http, $timeout) {
 
 	$scope.title = 'Admin Page';
 	$scope.showModal = false;
+	$scope.showPicModal = false;
 	$scope.editReview = {};
 
 	var init = function() {
@@ -21,18 +22,26 @@ app.controller('AdminController', function ($scope, $upload, $http, $timeout) {
 		});
 	};
 
-	$scope.editReview = function(review) {
-		console.log('edit click ' + JSON.stringify(review));
+	$scope.editReview = function(review) {		
+		angular.copy(review, $scope.editReview);
+		showModal();
+	};
 
-		console.log('1 $scope.editReview ' + JSON.stringify($scope.editReview));
+	$scope.getPics = function(review) {
+		$http.get('api/Pictures/' + review.reviewId).then(function(results) {
+			review.pics = [];
+			review.pics = results.data;
+		});
+	};
 
-		$scope.editReview = {};
-		console.log('2 $scope.editReview ' + JSON.stringify($scope.editReview));
+	$scope.selectPic = function(pic) {
+		$scope.showPicModal = false;
+
+		$scope.bigPictureUrl = pic.imgPath;
 		
-		//$scope.editReview = review;
-		//console.log('3 $scope.editReview ' + JSON.stringify($scope.editReview));
-
-		$scope.showModal = true;
+		$timeout(function() {
+			$scope.showPicModal = true;
+		}, 0);
 	};
 
 	$scope.updateReview = function() {
@@ -44,6 +53,13 @@ app.controller('AdminController', function ($scope, $upload, $http, $timeout) {
 			$scope.loading = false;
 			$scope.showModal = false;
 		});		
+	};
+
+	var showModal = function() {
+		$scope.showModal = false;
+		$timeout(function() {
+			$scope.showModal = true;
+		}, 0);
 	};
 
 	init();	

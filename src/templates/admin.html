@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked">
             <li ><a href="#"><i class="fa fa-home fa-fw"></i>Home</a></li>
            <!--  <li><a href="#"><i class="fa fa-list-alt fa-fw"></i>Widgets</a></li>
@@ -13,19 +13,32 @@
             <li><a href="#"><i class="fa fa-cogs fa-fw"></i>Settings</a></li>
         </ul> -->
     </div>
-    <div class="col-md-9 well">
+    <div class="col-md-10 well">
         <div ng-repeat="r in reviews">
 
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Review by {{r.reviewName}}</h3>
-                    <span class="pull-right clickable" style="margin-top: -15px" ng-click="r.visible = !r.visible">
+                    <span class="pull-right clickable" style="margin-top: -15px" ng-click="r.visible = !r.visible; getPics(r);">
                         <i ng-class="{true: 'glyphicon glyphicon-chevron-down', false: 'glyphicon glyphicon-chevron-up'}[!r.visible]"></i>
                     </span>
                 </div>
                 <div class="panel-body" ng-if="r.visible"  class="customAnimation">
+
                     {{r.reviewText}}
+
                     <hr/>
+
+                    <div class="row">
+                      <div ng-repeat="pic in r.pics">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                          <img class="img-responsive img-rounded shadowImg cropImg" ng-src="{{pic.imgPath}}" ng-click="selectPic(pic)">
+                        </div>
+                      </div>
+                    </div>
+
+                    <hr/>
+
                     <div class="pull-right">
                         <button class="btn" ng-click="editReview(r)">
                             <i class="fa fa-edit fa-fw fa-lg"/> Edit
@@ -98,7 +111,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-disabled="loading" class="close" data-dismiss="modal">
+        <button type="button" class="btn btn-default" ng-disabled="loading" class="close" data-dismiss="modal" ng-click="showModal = false;">
             Cancel
         </button>
         <button type="button" class="btn btn-primary" ng-disabled="loading" ng-click="updateReview()">
@@ -109,3 +122,25 @@
     </div>
   </div>
 </div>
+
+<!-- picture Modal -->
+<div angular-modal ng-model="showPicModal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      </div>
+      <div class="modal-body">
+        <center>
+          <img class="img-responsive img-rounded shadowImg largeImg" ng-src="{{bigPictureUrl}}"/>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <pre>
+  showModal {{showModal}} <hr/>
+  editReview {{editReview | json}} <hr/>
+  reviews {{reviews | json}}
+</pre> -->

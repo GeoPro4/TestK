@@ -16,6 +16,24 @@
 
 .fa-fw {width: 2em;}
 
+.shadowImg {
+    -webkit-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+    margin-bottom:20px;    
+}
+
+.cropImg {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.largeImg {
+    width: 100%;
+    height: 100%;
+}
+
 /* animations */
 
 .reveal-animation.ng-enter {
