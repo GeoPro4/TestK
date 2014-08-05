@@ -135,7 +135,11 @@ exports.UpdateReview = function(db) {
   return function(req, res) { 
 
   	var reviewId = req.params.reviewId;
+
+  	console.log('---------------------');
   	console.log('updating review ... ' + reviewId);
+  	console.log(req.body.rating + ', ' + req.body.reviewName + ', ' + req.body.reviewText);
+  	console.log('---------------------'); 
 
   	db.reviews.update({'reviewId': reviewId}, {$set: {'rating': req.body.rating,
   													  'reviewName': req.body.reviewName,
@@ -191,6 +195,92 @@ exports.DeleteReview = function(db) {
 	console.log('deleting review ' + reviewId);
 
 	db.reviews.remove({_id: new mongodb.ObjectID(reviewId)});
+
+	res.writeHead(200, { 'Content-Type': 'application/json' });	
+	res.end();
+  }
+};
+
+/*
+----------------------------
+----      Tags          ----
+-----------------------------
+*/
+
+exports.GetTags = function(db) { 
+  return function(req, res) {  
+
+	db.rtags.find().toArray(function(err, result) {			
+
+		if( err || !result) {
+			console.log("No tags found, error:  " + result);
+			res.writeHead(500, { 'Content-Type': 'application/json' });	
+			res.end();
+		} else {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(result));			
+		}
+	});
+  }
+};
+
+exports.GetTag = function(db) { 
+  return function(req, res) { 
+
+  	var reviewId = req.params.reviewId;
+
+  	console.log('getting tags for ' + reviewId);
+
+	db.rtags.find({'reviewId': reviewId}).toArray(function(err, result) {			
+
+		if( err || !result) {
+			console.log("No tags found, error:  " + result);
+			res.writeHead(500, { 'Content-Type': 'application/json' });	
+			res.end();
+		} else {
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify(result));			
+		}
+	});
+  }
+};
+
+exports.AddTag = function(db) { 
+  return function(req, res) {
+
+		var date = new Date();
+
+		var ipAddr = req.headers["x-forwarded-for"];
+		if (ipAddr){
+			var list = ipAddr.split(",");
+			ipAddr = list[list.length-1];
+		} else {
+			ipAddr = req.connection.remoteAddress;
+		}
+	
+		db.rtags.insert({'tag': req.body.tag, 
+							'dateAdded': date,
+							'reviewId': req.body.reviewId,
+							'ipAddr': ipAddr}, (function(err, mes) {
+			if( err || !mes) {
+				console.log("tag not saved: " + mes);
+				res.writeHead(500, { 'Content-Type': 'application/json' });	
+			} else {
+				res.writeHead(200, { 'Content-Type': 'application/json' });				
+			}
+
+			res.end();
+		}));
+  }
+};
+
+exports.DeleteTag = function(db) { 
+  return function(req, res) {
+
+	var tagId = req.params.tagId;	
+	console.log('deleting tag ' + tagId);
+
+	db.rtags.remove({_id: new mongodb.ObjectID(tagId)});
 
 	res.writeHead(200, { 'Content-Type': 'application/json' });	
 	res.end();

@@ -11,7 +11,7 @@ var api = require('./routes/api');
 var fs = require('fs');
 
 var databaseUrl = "testDB";
-var collections = ["users", "pics", "reviews"]
+var collections = ["users", "pics", "reviews", "rtags"]
 var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
@@ -49,6 +49,11 @@ app.get('/api/Reviews/:reviewId', api.GetReview(db));
 app.put('/api/Reviews/:reviewId', api.UpdateReview(db));
 app.post('/api/Reviews', api.AddReview(db));
 app.delete('/api/Reviews/:reviewId', api.DeleteReview(db));
+
+app.get('/api/Tags', api.GetTags(db));
+app.get('/api/Tags/:reviewId', api.GetTag(db));
+app.post('/api/Tags', api.AddTag(db));
+app.delete('/api/Tags/:tagId', api.DeleteTag(db));
 
 app.get('/api/Pictures/:reviewId', api.GetPictures(db));
 app.get('/uploads/:file', api.GetPic(db));

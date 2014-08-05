@@ -19,7 +19,7 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Review by {{r.reviewName}}</h3>
-                    <span class="pull-right clickable" style="margin-top: -15px" ng-click="r.visible = !r.visible; getPics(r);">
+                    <span class="pull-right clickable" style="margin-top: -15px" ng-click="r.visible = !r.visible; getReviewDetails(r);">
                         <i ng-class="{true: 'glyphicon glyphicon-chevron-down', false: 'glyphicon glyphicon-chevron-up'}[!r.visible]"></i>
                     </span>
                 </div>
@@ -28,6 +28,14 @@
                     {{r.reviewText}}
 
                     <hr/>
+
+                    <div ng-repeat="t in r.tags">
+                      <div class="col-md-1 block">                        
+                        <span class="badge badge-info">{{t.tag}}</span>
+                      </div>
+                    </div>
+
+                    <br/><hr/>
 
                     <div class="row">
                       <div ng-repeat="pic in r.pics">
@@ -40,7 +48,7 @@
                     <hr/>
 
                     <div class="pull-right">
-                        <button class="btn" ng-click="editReview(r)">
+                        <button class="btn" ng-click="editReview($index)">
                             <i class="fa fa-edit fa-fw fa-lg"/> Edit
                         </button>
                         <button class="btn" ng-click="deleteReview(r)">
@@ -64,12 +72,12 @@
         <h4 class="modal-title" id="myModalLabel">Edit Review</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" role="form" ng-model="editReview" style="max-width: 700px;">
+        <form class="form-horizontal" role="form" style="max-width: 700px;">
 
           <div class="form-group">
             <label for="inputName3" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputName3" placeholder="Name" ng-model="editReview.reviewName">
+              <input type="text" class="form-control" id="inputName3" placeholder="Name" ng-model="reviews[selectedReviewIndex].reviewName">
             </div>
           </div>
 
@@ -77,11 +85,11 @@
             <label for="inputReview3" class="col-sm-2 control-label">Rating</label>
             <div class="col-sm-10">
               <div class="stars" style="font-size: 1.4em; margin-top: 5px;">         
-                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[editReview.rating > 0]" ng-click="editReview.rating = 1;"></span> 
-                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[editReview.rating > 1]" ng-click="editReview.rating = 2;"></span> 
-                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[editReview.rating > 2]" ng-click="editReview.rating = 3;"></span> 
-                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[editReview.rating > 3]" ng-click="editReview.rating = 4;"></span> 
-                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[editReview.rating > 4]" ng-click="editReview.rating = 5;"></span> 
+                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[reviews[selectedReviewIndex].rating > 0]" ng-click="reviews[selectedReviewIndex].rating = 1;"></span> 
+                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[reviews[selectedReviewIndex].rating > 1]" ng-click="reviews[selectedReviewIndex].rating = 2;"></span> 
+                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[reviews[selectedReviewIndex].rating > 2]" ng-click="reviews[selectedReviewIndex].rating = 3;"></span> 
+                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[reviews[selectedReviewIndex].rating > 3]" ng-click="reviews[selectedReviewIndex].rating = 4;"></span> 
+                  <span ng-class="{true: 'glyphicon glyphicon-star', false: 'glyphicon glyphicon-star-empty'}[reviews[selectedReviewIndex].rating > 4]" ng-click="reviews[selectedReviewIndex].rating = 5;"></span> 
               </div>
             </div>
           </div>
@@ -89,7 +97,7 @@
           <div class="form-group">
             <label for="inputReview3" class="col-sm-2 control-label">Review</label>
             <div class="col-sm-10">
-              <textarea class="form-control" rows="5" placeholder="Review Text" ng-model="editReview.reviewText"></textarea>
+              <textarea class="form-control" rows="5" placeholder="Review Text" ng-model="reviews[selectedReviewIndex].reviewText"></textarea>
             </div>
           </div>
 
@@ -102,11 +110,28 @@
                 </label>
             </div>
           </div> -->
-            
-            <div ng-repeat="pic in pictures">
-                <img ng-src="{{pic.imgPath}}" style="max-width: 50px;">
-                <span> {{pic.imgName}} </span> <br/>
+          
+          <div class="form-group">
+            <label for="inputName3" class="col-sm-2 control-label"><i class="fa fa-tags"></i> Tags:</label>
+            <div class="col-sm-10">
+              <div ng-repeat="t in reviews[selectedReviewIndex].tags">
+                <span class="col-sm-2 badge badge-info">{{t.tag}} <i class="fa fa-lg fa-times-circle" ng-click="deleteTag(t)"></i></span>
+              </div>
             </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputName3" class="col-sm-2 control-label"></label>
+            <div class="input-group col-sm-10">              
+              <input class="form-control" type="text" placeholder="tag" ng-model="tag2Add">
+              <div class="input-group-addon btn" ng-click="addTag()">+</div>
+            </div>
+          </div>
+            
+          <div ng-repeat="pic in reviews[selectedReviewIndex].pics">
+              <img ng-src="{{pic.imgPath}}" style="max-width: 50px;">
+              <span> {{pic.imgName}} </span> <br/>
+          </div>
 
         </form>
       </div>
@@ -139,8 +164,8 @@
   </div>
 </div>
 
-<!-- <pre>
-  showModal {{showModal}} <hr/>
-  editReview {{editReview | json}} <hr/>
+<pre>
+  tag2Add {{tag2Add}} <hr/>
+  selectedReviewIndex {{selectedReviewIndex}} <hr/>
   reviews {{reviews | json}}
-</pre> -->
+</pre>
