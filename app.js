@@ -1,12 +1,13 @@
 
-/**
- * Module dependencies.
- */
-
 var express = require('express');
 var http = require('http');
 var path = require('path');
 var api = require('./routes/api');
+
+// 4.0 stuff
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var multipart = require('connect-multiparty');
 
 var fs = require('fs');
 
@@ -16,27 +17,11 @@ var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
 
-app.configure(function () {
-  app.use(express.bodyParser());
-});
-
-// all environments
+var multipartMiddleware = multipart();
 app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(app.router);
+app.use(morgan('dev')); 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-// development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
-
-// app.get('/', routes.index);
 app.get('/', function(req, res) {
   res.sendfile("dist/index.html");
 });
@@ -59,7 +44,7 @@ app.get('/api/Pictures/:reviewId', api.GetPictures(db));
 app.get('/uploads/:file', api.GetPic(db));
 
 /// Post files
-app.post('/upload', function(req, res) {
+app.post('/upload', multipartMiddleware, function(req, res) {
 
 	var date = new Date();
 
@@ -68,13 +53,31 @@ app.post('/upload', function(req, res) {
 		var picNum = req.body.picNum;
 		var reviewId = req.body.reviewId;
 				
-		var orgImageName = req.files.file.name;
+		var orgImageName = req.files.file.originalFilename;
 		var orgImagePath = req.files.file.path;
+
 		var fileExtension = orgImageName.slice(-4);
+		if (fileExtension.charAt(0) === '.') {
+			// good
+		} else {
+			fileExtension = orgImageName.slice(-5);
+
+			if (!fileExtension.charAt(0) === '.') {
+				console.log('!!!! error getting the file extension !!!! ' + fileExtension)
+			}
+		}		
 
 		var imageName = reviewId + '_pic_' + picNum + fileExtension;
 		var serverPath =  __dirname + "/uploads/" + imageName;
 		var imgPath = '/uploads/' + imageName;
+
+		/*console.log('-----------------');
+		console.log('picNum ' + picNum);	
+		console.log('reviewId ' + reviewId);	
+		console.log('orgImageName ' + orgImageName);	
+		console.log('orgImagePath ' + orgImagePath);	
+		console.log('imageName ' + imageName);	
+		console.log('-----------------');*/
 
 		var ipAddr = req.headers["x-forwarded-for"];
 		if (ipAddr){
