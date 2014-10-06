@@ -8,6 +8,7 @@ var api = require('./routes/api');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
 
 var fs = require('fs');
 
@@ -17,7 +18,9 @@ var db = require("mongojs").connect(databaseUrl, collections);
 
 var app = express();
 
-var multipartMiddleware = multipart();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.set('port', process.env.PORT || 3000);
 app.use(morgan('dev')); 
 app.use(express.static(path.join(__dirname, 'dist')));

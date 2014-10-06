@@ -33,7 +33,7 @@
     "moment": "^2.7.0",
     "underscore": "^1.6.0",
     "morgan": "^1.2.2",
-    "body-parser": "^1.6.0",
+    "body-parser": "*",
     "connect-multiparty": "^1.1.0"
   },
   "dependencies": {
