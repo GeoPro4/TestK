@@ -123,6 +123,18 @@ module.exports = function(grunt) {
   	},
 
     copy: {
+      preDataFolder: {
+        src: ['README.md'],
+        expand: true,
+        cwd: '',
+        dest: 'data',
+      },
+      preUploadsFolder: {
+        src: ['README.md'],
+        expand: true,
+        cwd: '',
+        dest: 'uploads',
+      },
       build: {
         src: ['css/**', 'lib/**', 'templates/**', 'img/**', 'index.html'],
         expand: true,
@@ -211,7 +223,11 @@ module.exports = function(grunt) {
   // CREATE TASKS ==============================================================
   // ===========================================================================
   //grunt.registerTask('devBuild', ['jshint', 'clean:build', 'concat', 'cssmin', 'less', 'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 'jasmine:runUnitTests']); 
-  grunt.registerTask('devBuild', ['jshint', 'clean:build', 'concat', 'cssmin', 'less', 'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 'karma']); 
+  grunt.registerTask('devBuild', ['copy:preDataFolder', 'copy:preUploadsFolder',
+                                   'jshint', 'clean:build', 'concat', 'cssmin', 'less',
+                                   'copy:build', 'copy:copyUnminJsFiles', 'clean:after', 
+                                   'karma']); 
+
   grunt.registerTask('prodBuild', ['jshint', 'clean:build', 'concat', 'uglify', 'cssmin', 'less', 'copy:build', 'clean:after']); 
   grunt.registerTask('startServer', ['shell:mongodb', 'express:dev', 'watch']);
 
